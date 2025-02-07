@@ -110,8 +110,8 @@ body{
     line-height: 14.5dvmax;
     letter-spacing: -1px;
     margin-right: 50px;
-    animation: flow 14s ease-in-out infinite;
-    animation-delay: 4s;
+    /* animation: flow 14s ease-in-out infinite;
+    animation-delay: 4s; */
 }
 
 @keyframes growFont {
