@@ -295,3 +295,19 @@ projekts.forEach(function(projekt) {
         projekt.classList.add('clicked');
     });
 });
+
+
+const impressumDiv = document.getElementById('impressum-span');
+const impressumHidden = document.getElementById('impressum-hidden');
+
+    if (impressumDiv && impressumHidden) {
+        impressumDiv.addEventListener('click', function() {
+            if (impressumHidden.style.display === 'none' || impressumHidden.style.display === '') {
+                impressumHidden.style.display = 'block';
+            } else {
+                impressumHidden.style.display = 'none';
+            }
+        });
+    } else {
+        console.error("Elemente nicht gefunden");
+    }

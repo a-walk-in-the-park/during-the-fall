@@ -411,10 +411,20 @@ canvas{
     cursor: pointer;
 }
 
+.impressum-head p{
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    max-width: 700px;
+}
+
 .impressum{
+    margin-bottom: 2rem;
+}
+
+#impressum-span{
     position: fixed;
-    bottom: 5px;
-    right: 8px;
+    bottom: 1% !important;
+    right: 1% !important;
 }
 
 
