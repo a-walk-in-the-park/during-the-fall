@@ -271,6 +271,7 @@ i{
 a{
     word-break: break-all;
     color: var(--color44);
+    text-decoration: none;
 }
 
 a:hover{
