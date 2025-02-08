@@ -104,11 +104,12 @@ body{
 }
 
 #title span{
-    font-size: 11dvmax;
-    line-height: 11.2dvmax;
+    font-size: 12.6dvmax;
+    line-height: 10dvmax;
     text-shadow: 0px 0px 30px var(--color66);
     letter-spacing: -1px;
     transition: 1s;
+    padding: 0%;
 }
 
 .playing span{
@@ -493,7 +494,7 @@ canvas{
 
     #title span{
         text-shadow: 0px 0px 30px var(--color66);    
-        font-size: 13.5dvmax;
+        font-size: 13.8dvmax;
         line-height: 12dvmax;
     }
 
