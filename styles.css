@@ -107,8 +107,8 @@ body{
 }
 
 #title span{
-    font-size: 12.6dvmax;
-    line-height: 14.5dvmax;
+    font-size: 11dvmax;
+    line-height: 11.2dvmax;
     letter-spacing: -1px;
     transition: 1s;
 }
