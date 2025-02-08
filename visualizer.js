@@ -107,7 +107,7 @@ function createWavyPath(x1, y1, x2, y2, delayIndex) {
   // Once the drawing animation is finished, keep the path dashed and transition opacity to 1
   path.addEventListener('animationend', () => {
     path.style.strokeDasharray = "5, 5"; // Set the path to be dashed after animation
-    path.style.opacity = "1"; // Transition opacity to 1 after animation ends
+    path.style.opacity = "1"; 
   });
 
   return path;
