@@ -117,16 +117,16 @@ body{
 
 @keyframes flow {
     0%{
-        text-shadow: 0px 0px 30px var(--color66);
         color: #a89fb33d;
+        filter: blur(0px);
     }
     70%{
-        text-shadow: 0px 0px 20px var(--color66);
         color: #a89fb30b;
+        filter: blur(3px);
     }
     100%{
-        text-shadow: 0px 0px 30px var(--color66);
         color: #a89fb33d;
+        filter: blur(0px);
     }
 }
 
