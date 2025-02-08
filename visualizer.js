@@ -73,8 +73,8 @@ function getDivCenter(div) {
   };
 }
 
-// Function to create a wavy path between two points
-function createWavyPath(x1, y1, x2, y2) {
+// Function to create a wavy path between two points with animation
+function createWavyPath(x1, y1, x2, y2, delayIndex) {
   const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
   const controlPoint1 = {
     x: (x1 + x2) / 2 + (Math.random() - 0.5) * 400, // Randomize control points for the wavy effect
@@ -92,11 +92,27 @@ function createWavyPath(x1, y1, x2, y2) {
 
   path.setAttribute("d", pathData);
   path.setAttribute("stroke", "black"); // Set stroke color
-  path.setAttribute("stroke-width", "0.5");
+  path.setAttribute("stroke-width", "0.6");
   path.setAttribute("fill", "none"); // No fill for the path
+
+  const pathLength = path.getTotalLength();
+  path.style.strokeDasharray = pathLength;  // Set dash array to match the length of the path
+  path.style.strokeDashoffset = pathLength; // Start the path hidden (offset by full length)
+  path.style.opacity = "0.5"; // Set initial opacity to 0.5 during the animation
+
+  // Add CSS animation for drawing the path
+  path.style.animation = `draw 4s ease forwards, fadeIn 4s ease forwards`; // Animate the stroke and opacity
+  path.style.animationDelay = `${delayIndex * 0.8}s`; // Stagger the animation delay
+
+  // Once the drawing animation is finished, keep the path dashed and transition opacity to 1
+  path.addEventListener('animationend', () => {
+    path.style.strokeDasharray = "5, 5"; // Set the path to be dashed after animation
+    path.style.opacity = "1"; // Transition opacity to 1 after animation ends
+  });
 
   return path;
 }
+
 
 // Function to create connections between divs using the wavy paths
 function connectDivs(divs) {
@@ -106,12 +122,13 @@ function connectDivs(divs) {
       if (index1 < index2) { // Only connect each pair once
         const center1 = getDivCenter(div1);
         const center2 = getDivCenter(div2);
-        const path = createWavyPath(center1.x, center1.y, center2.x, center2.y);
+        const path = createWavyPath(center1.x, center1.y, center2.x, center2.y, index1);
         svg.appendChild(path);
       }
     });
   });
 }
+
 
 
 
@@ -131,58 +148,100 @@ function connectDivs(divs) {
 
 
 
-// Variables to keep track of the currently playing audio and button
-let currentAudio = null;
-let currentButton = null;
-
-// Function to handle play button clicks
-function handlePlayButtonClick(event) {
-  const button = event.target.closest('.play-button');
-  if (!button) return;
-
-  const projektDiv = button.closest('.projekt');
-  const audio = projektDiv.querySelector('audio');
-  const progressBar = projektDiv.querySelector('.progress-bar');
-  const progressDot = projektDiv.querySelector('.progress-dot');
+  let currentAudio = null;
+  let currentButton = null;
+  const titleSpan = document.querySelector('#title'); // Select the #title span
   
-  // Check if the clicked button's audio is currently playing
-  if (audio !== currentAudio) {
-    // Pause previous audio if any, reset the previous button
-    if (currentAudio) {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
-      currentButton.classList.remove('pause');
-    }
-
-    // Play the new audio
-    audio.play();
-    button.classList.add('pause');
-    currentAudio = audio;
-    currentButton = button;
-  } else {
-    // Pause or resume the current audio
-    if (!audio.paused) {
-      audio.pause();
-      button.classList.remove('pause');
-    } else {
+  // Function to handle play button clicks
+  function handlePlayButtonClick(event) {
+    const button = event.target.closest('.play-button');
+    if (!button) return;
+  
+    const projektDiv = button.closest('.projekt');
+    const audio = projektDiv.querySelector('audio');
+    const progressBar = projektDiv.querySelector('.progress-bar');
+    const progressDot = projektDiv.querySelector('.progress-dot');
+    
+    // Check if the clicked button's audio is currently playing
+    if (audio !== currentAudio) {
+      // Pause previous audio if any, reset the previous button
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        currentButton.classList.remove('pause');
+        titleSpan.classList.remove('playing'); // Remove the 'playing' class
+      }
+  
+      // Play the new audio
       audio.play();
       button.classList.add('pause');
+      titleSpan.classList.add('playing'); // Add the 'playing' class
+      currentAudio = audio;
+      currentButton = button;
+    } else {
+      // Pause or resume the current audio
+      if (!audio.paused) {
+        audio.pause();
+        button.classList.remove('pause');
+        titleSpan.classList.remove('playing'); // Remove the 'playing' class when paused
+      } else {
+        audio.play();
+        button.classList.add('pause');
+        titleSpan.classList.add('playing'); // Add the 'playing' class when resumed
+      }
     }
+  
+    // Update progress bar and dot as the audio plays
+    audio.addEventListener('timeupdate', function () {
+      const progress = (audio.currentTime / audio.duration) * 100;
+      progressBar.style.width = `${progress}%`;
+      progressDot.style.left = `${progress}%`;
+    });
+  
+    // Reset when the audio ends
+    audio.addEventListener('ended', function () {
+      progressBar.style.width = '0%';
+      progressDot.style.left = '0%';
+      button.classList.remove('pause');
+      titleSpan.classList.remove('playing'); // Remove the 'playing' class when ended
+    });
+  
+    // Make the progress bar draggable
+    makeProgressBarDraggable(projektDiv, audio, progressBar, progressDot);
   }
-
-  // Update progress bar and dot as the audio plays
-  audio.addEventListener('timeupdate', function () {
-    const progress = (audio.currentTime / audio.duration) * 100;
-    progressBar.style.width = `${progress}%`;
-    progressDot.style.left = `${progress}%`;
-  });
-
-  // Reset when the audio ends
-  audio.addEventListener('ended', function () {
-    progressBar.style.width = '0%';
-    progressDot.style.left = '0%';
-    button.classList.remove('pause');
-  });
+  
+  // Function to handle restart button clicks
+  function handleRestartButtonClick(event) {
+    const button = event.target.closest('.restart-button');
+    if (!button) return;
+  
+    const projektDiv = button.closest('.projekt');
+    const audio = projektDiv.querySelector('audio');
+    const playButton = projektDiv.querySelector('.play-button');
+    const progressBar = projektDiv.querySelector('.progress-bar');
+    const progressDot = projektDiv.querySelector('.progress-dot');
+  
+    // Reset and play the current audio
+    audio.currentTime = 0;
+    audio.play();
+    titleSpan.classList.add('playing'); // Add 'playing' class on restart
+    currentAudio = audio;
+    currentButton = playButton;
+  
+    // Update progress as the audio plays
+    audio.addEventListener('timeupdate', function () {
+      const progress = (audio.currentTime / audio.duration) * 100;
+      progressBar.style.width = `${progress}%`;
+      progressDot.style.left = `${progress}%`;
+    });
+  
+    // Reset progress bar and dot when audio ends
+    audio.addEventListener('ended', function () {
+      progressBar.style.width = '0%';
+      progressDot.style.left = '0%';
+      playButton.classList.remove('pause');
+      titleSpan.classList.remove('playing'); // Remove 'playing' class when audio ends
+    });
 
   // Make the progress bar draggable
   makeProgressBarDraggable(projektDiv, audio, progressBar, progressDot);

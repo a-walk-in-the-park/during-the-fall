@@ -91,59 +91,72 @@ body{
     font-family: "RightMono";
     color: #a89fb33d;
     text-shadow: 0px 0px 30px var(--color66);
-    font-size: 12.6dvmax;
-    line-height: 14.5dvmax;
     letter-spacing: -1px;
     padding-top: 8px;
     padding-left: 26px;
     width: 100vw;
     height: 100dvh;
     font-family: Arial, Helvetica, sans-serif;
-    /* animation: growFont 7s linear forwards; */
-
+    /* animation: growFont 5s linear forwards;
+    animation-delay: 2s; */
+    gap: 4dvmax;
 
     display: flex;
     flex-flow: row wrap;
+    /* justify-content: space-between; */
 }
 
 #title span{
     font-size: 12.6dvmax;
     line-height: 14.5dvmax;
     letter-spacing: -1px;
-    margin-right: 50px;
-    /* animation: flow 14s ease-in-out infinite;
-    animation-delay: 4s; */
+    transition: 1s;
 }
 
-@keyframes growFont {
+.playing span{
+    animation: flow 10s ease-in-out infinite;
+}
+
+/* @keyframes growFont {
     0% {
         justify-content: space-between;
     }
-    40% {
+    45% {
         justify-content: end;
     }
-    60% {
+    65% {
         justify-content: space-between;
     }
     100% {
         justify-content: start;
     }
-}
+} */
 
 @keyframes flow {
     0%{
-        margin-right: 50px;
         letter-spacing: -1px;
     }
     70%{
-        margin-right: 53px;
-        letter-spacing: 3px;
+        letter-spacing: 1px;
     }
     100%{
-        margin-right: 50px;
         letter-spacing: -1px;
     }
 }
+
+path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: draw 1s ease forwards;
+    transition: opacity 1s;
+  }
+  
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  
 
 
 /* Projekte */
@@ -154,7 +167,20 @@ body{
     position: relative;
     display: flex;
     flex-direction: row;
+    opacity: 0;
+    animation: appear 6s ease forwards;
+    animation-delay: 1s;
 }
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+  }
+
 
 h2{
     font-family: "RightMono";
@@ -466,16 +492,15 @@ canvas{
     }
 
     #title{
-        font-size: 13.5dvmax;
-        line-height: 14.5dvmax;
-        text-shadow: 0px 0px 30px var(--color66);    
+        margin: 0%;
         padding-top: 0px;
-        padding-left: 26px;
+        padding-left: 10px;
     }
 
     #title span{
-        margin-left: -10px;
-        margin-top: -10px;
+        text-shadow: 0px 0px 30px var(--color66);    
+        font-size: 13.5dvmax;
+        line-height: 12dvmax;
     }
 
     h3{
