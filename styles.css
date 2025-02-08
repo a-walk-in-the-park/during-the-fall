@@ -435,7 +435,10 @@ canvas{
     position: fixed;
     bottom: 1%;
     right: 1%;
-    text-indent: 0%;
+}
+
+#impressum-span p{
+    text-indent: 0px;
 }
 
 #impressum-span span{
