@@ -22,7 +22,7 @@ fetch('positions.json')
     const randomPositionSet = positionData[randomPositionSetKey];
 
     // Select all the .projekt divs
-    const divs = document.querySelectorAll('.projekt');
+    const divs = document.querySelectorAll('.projekt:not(#impressum-span)');
 
     divs.forEach((div, index) => {
       const { left, top } = randomPositionSet[index];
@@ -219,19 +219,54 @@ function handleRestartButtonClick(event) {
   });
 }
 
-// Function to handle close button clicks
 function handleCloseButtonClick(event) {
   const button = event.target.closest('.close-button');
   if (!button) return;
 
-  event.stopPropagation();
   const projektDiv = button.closest('.projekt');
+  const audio = projektDiv.querySelector('audio');
 
-  // Remove the 'clicked' class from all projekt divs
+  // Stop the audio and reset it to the beginning
+  if (audio) {
+    audio.pause();
+    audio.currentTime = 0; // Reset audio to the start
+  }
+
+  // Reset the progress bar and play button
+  const playButton = projektDiv.querySelector('.play-button');
+  const progressBar = projektDiv.querySelector('.progress-bar');
+  const progressDot = projektDiv.querySelector('.progress-dot');
+  
+  if (progressBar && progressDot) {
+    progressBar.style.width = '0%';
+    progressDot.style.left = '0%';
+  }
+
+  if (playButton) {
+    playButton.classList.remove('pause'); // Reset the play button state
+  }
+
+  // Scroll to top and delay removing 'clicked' class from all projekt divs
   document.querySelectorAll('.projekt').forEach(function (projekt) {
-    projekt.classList.remove('clicked');
+    const projektHidden = projekt.querySelector('.projekt-hidden');
+    
+    // Scroll to the top of the hidden div
+    projektHidden.scrollTop = 0;
+
+    // Add delay for smooth transition, then remove 'clicked' class
+    setTimeout(() => {
+      projekt.classList.remove('clicked');
+    }, 300); // Adjust this value if necessary (in ms)
   });
+
+  // Reset current audio and button variables
+  currentAudio = null;
+  currentButton = null;
+
+  event.stopPropagation(); // Prevent further propagation of the click event
 }
+
+
 
 // Function to make the progress bar draggable
 function makeProgressBarDraggable(projektDiv, audio, progressBar, progressDot) {
@@ -280,15 +315,18 @@ document.addEventListener('click', function (event) {
 
 
 
-// Select all the .projekt elements
 const projekts = document.querySelectorAll('.projekt');
 
-// Add a click event listener to each .projekt div
 projekts.forEach(function(projekt) {
     projekt.addEventListener('click', function() {
-        // Remove the 'clicked' class from all divs
         projekts.forEach(function(proj) {
-            proj.classList.remove('clicked');
+            if (proj.classList.contains('clicked')) {
+                const projektHidden = proj.querySelector('.projekt-hidden');
+                
+                // Scroll the div to the top
+                projektHidden.scrollTop = 0;
+
+            }
         });
 
         // Add the 'clicked' class to the clicked div
@@ -297,17 +335,5 @@ projekts.forEach(function(projekt) {
 });
 
 
-const impressumDiv = document.getElementById('impressum-span');
-const impressumHidden = document.getElementById('impressum-hidden');
 
-    if (impressumDiv && impressumHidden) {
-        impressumDiv.addEventListener('click', function() {
-            if (impressumHidden.style.display === 'none' || impressumHidden.style.display === '') {
-                impressumHidden.style.display = 'block';
-            } else {
-                impressumHidden.style.display = 'none';
-            }
-        });
-    } else {
-        console.error("Elemente nicht gefunden");
-    }
+
