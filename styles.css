@@ -55,7 +55,6 @@ body{
 
 #title{
     position: fixed;
-    font-family: "RightMono";
     color: #a89fb33d;
     padding-top: 8px;
     padding-left: 26px;
@@ -76,6 +75,7 @@ body{
     letter-spacing: -1px;
     transition: 1s;
     padding: 0%;
+    font-weight: 500;
 }
 
 .playing span{
