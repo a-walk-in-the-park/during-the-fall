@@ -251,6 +251,10 @@ i{
     margin-bottom: 1rem;
 }
 
+ol{
+    padding-left: 60px;
+}
+
 .quellen{
     margin-top: 4rem;
 }
