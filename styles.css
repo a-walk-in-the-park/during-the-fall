@@ -1,22 +1,4 @@
 @font-face {
-    font-family: "WHYTE";
-    src:
-      url("fonts/ABCWHYTEEDU-REGULAR.OTF") format("opentype");
-}
-
-@font-face {
-    font-family: "WHYTEItal";
-    src:
-      url("fonts/ABCWHYTEEDU-REGULARITALIC.OTF") format("opentype");
-}
-
-@font-face {
-    font-family: "bluMe";
-    src:  url('fonts/Blu-meVF.woff2') format('woff2'),
-    url('fonts/Blu-meVF.woff') format('woff');
-}
-
-@font-face {
     font-family: "RightMono";
     src:  url('fonts/PPRightSerifMono-Regular.otf') format('opentype');
 }
@@ -40,34 +22,18 @@
 :root{
     --fontSize: 17px;
     --lineHeigth: 25px;
-    --color1: rgb(61, 49, 42);
+    /* --color1: rgb(61, 49, 42);
     --color2: whitesmoke;
     --color3: rgb(136, 228, 133);
 
     --color44: rgb(104, 233, 92);
     --color55: rgb(123, 226, 113);
-    --color66: rgb(188, 148, 238);
-  
+    --color66: rgb(188, 148, 238); */
+    --color1: rgb(47, 40, 38);
+    --color2: rgb(241, 240, 240);
     --color44: #7ac274;
     --color55: #e2f3e0;
     --color66: #a89fb3;
-
-
-    --color77:  rgb(151, 134, 168);
-
-    /* --color55: rgb(126, 189, 80);
-    --color66: rgb(85, 133, 63); */
-
-    /* --color55: rgb(181, 236, 169);
-    --color66: rgb(3, 155, 201); */
-
-    /* --color55: rgb(238, 225, 189);
-    --color66: rgb(143, 207, 175); */
-
-    /* --color55: rgb(220, 220, 220);
-    --color66: rgb(202, 202, 202); */
-
-    --color77:  rgb(249, 249, 249);
 }
 
 body{
@@ -144,10 +110,6 @@ path {
       stroke-dashoffset: 0;
     }
   }
-  
-
-
-/* Projekte */
 
 .projekt{
     position: absolute;
@@ -157,8 +119,6 @@ path {
     flex-direction: row;
     animation-delay: 1s;
 }
-
-
 
 h2{
     font-family: "RightMono";
@@ -186,7 +146,7 @@ h2{
 .projekt span{
     background-color: var(--color2);
     border-radius: 50%;
-    padding: 3px 9px 3px 9px;
+    padding: 4px 10px 4px 10px;
     box-shadow: 1px 1px 2px var(--color1);
 }
 
@@ -324,24 +284,9 @@ a:visited{
     border-radius: 80px 80px 0 0;
 }
 
-
 .close-button:hover{
     background-color: var(--color3);
     color: var(--color2);
-}
-
-
-/* Animation */
-
-canvas{
-    position: fixed;
-    top: 0%;
-    right: 0%;
-    width: 100vw;
-    height: 80vh;
-    z-index: -10;
-    /* transform: rotate(180deg); */
-    transition: 1s;
 }
 
 .button-box{
@@ -513,6 +458,10 @@ canvas{
         word-wrap: break-word;
         overflow-wrap: break-word;
         -webkit-hyphens: auto; 
+    }
+
+    i{
+        margin-left: 0px;
     }
   }
   
