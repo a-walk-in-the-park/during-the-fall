@@ -73,7 +73,6 @@ body{
     line-height: 10dvmax;
     text-shadow: 0px 0px 30px var(--color66);
     letter-spacing: -1px;
-    transition: 1s;
     padding: 0%;
     font-weight: 500;
 }
