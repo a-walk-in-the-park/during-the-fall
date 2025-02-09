@@ -118,7 +118,7 @@ body{
 
 @keyframes flow {
     0%{
-        color: #a89fb33d;
+        color: #a89fb32c;
         filter: blur(0px);
     }
     70%{
@@ -126,7 +126,7 @@ body{
         filter: blur(3px);
     }
     100%{
-        color: #a89fb33d;
+        color: #a89fb32c;
         filter: blur(0px);
     }
 }
