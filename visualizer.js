@@ -161,6 +161,7 @@ function connectDivs(divs) {
     const audio = projektDiv.querySelector('audio');
     const progressBar = projektDiv.querySelector('.progress-bar');
     const progressDot = projektDiv.querySelector('.progress-dot');
+    const lines = document.getElementById('lines-svg');
     
     // Check if the clicked button's audio is currently playing
     if (audio !== currentAudio) {
@@ -169,13 +170,15 @@ function connectDivs(divs) {
         currentAudio.pause();
         currentAudio.currentTime = 0;
         currentButton.classList.remove('pause');
-        titleSpan.classList.remove('playing'); // Remove the 'playing' class
+        titleSpan.classList.remove('playing');
+        lines.classList.remove('playing');
       }
   
       // Play the new audio
       audio.play();
       button.classList.add('pause');
-      titleSpan.classList.add('playing'); // Add the 'playing' class
+      titleSpan.classList.add('playing');
+      lines.classList.add('playing');
       currentAudio = audio;
       currentButton = button;
     } else {
@@ -183,11 +186,13 @@ function connectDivs(divs) {
       if (!audio.paused) {
         audio.pause();
         button.classList.remove('pause');
-        titleSpan.classList.remove('playing'); // Remove the 'playing' class when paused
+        titleSpan.classList.remove('playing');
+        lines.classList.remove('playing');
       } else {
         audio.play();
         button.classList.add('pause');
-        titleSpan.classList.add('playing'); // Add the 'playing' class when resumed
+        titleSpan.classList.add('playing');
+        lines.classList.add('playing');
       }
     }
   
@@ -334,7 +339,15 @@ function makeProgressBarDraggable(projektDiv, audio, progressBar, progressDot) {
 
   function updateProgress(e) {
     const rect = progressContainer.getBoundingClientRect();
-    const offsetX = e.clientX - rect.left;
+    let offsetX;
+
+    // Check if it's a touch event or mouse event
+    if (e.type.startsWith('touch')) {
+      offsetX = e.touches[0].clientX - rect.left;
+    } else {
+      offsetX = e.clientX - rect.left;
+    }
+
     const newTime = (offsetX / rect.width) * audio.duration;
     audio.currentTime = newTime;
 
@@ -344,22 +357,40 @@ function makeProgressBarDraggable(projektDiv, audio, progressBar, progressDot) {
     progressDot.style.left = `${progress}%`;
   }
 
-  // Handle dragging on the progress bar and dot
+  // Handle mouse and touch events on the progress bar and dot
   progressContainer.addEventListener('click', updateProgress);
+
   progressDot.addEventListener('mousedown', function () {
     isDragging = true;
   });
 
+  progressDot.addEventListener('touchstart', function () {
+    isDragging = true;
+  });
+
+  // Handle movement while dragging (mouse and touch)
   window.addEventListener('mousemove', function (e) {
     if (isDragging) {
       updateProgress(e);
     }
   });
 
+  window.addEventListener('touchmove', function (e) {
+    if (isDragging) {
+      updateProgress(e);
+    }
+  });
+
+  // Handle release (stop dragging) for both mouse and touch
   window.addEventListener('mouseup', function () {
     isDragging = false;
   });
+
+  window.addEventListener('touchend', function () {
+    isDragging = false;
+  });
 }
+
 
 // Event delegation for all buttons
 document.addEventListener('click', function (event) {

@@ -109,6 +109,23 @@ path {
       stroke-dashoffset: 0;
     }
   }
+/* 
+.playing path{
+    animation: dash 7s ease-in-out infinite; 
+}
+
+  @keyframes dash {
+    0% {
+        stroke-dasharray: 5,5;
+    }
+    50% {
+        stroke-dasharray: 10,2;
+    }
+    100% {
+        stroke-dasharray: 5,5;
+    }
+  } */
+
 
 .projekt{
     position: absolute;
@@ -457,6 +474,65 @@ a:visited{
     }
 
     p{
+        hyphens: auto;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        -webkit-hyphens: auto; 
+    }
+
+    i{
+        margin-left: 0px;
+    }
+  }
+  
+
+
+
+
+  @media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+    .projekt-hidden{
+        left: 0%;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .play-button, .restart-button, .text-button, .close-button{
+        height: 30px;
+        width: 30px;
+    }
+
+    .clicked .close-button{
+        bottom: 12px;
+        right: 6px;
+    }
+
+    #title{
+        margin: 0%;
+        padding-top: 0px;
+        padding-left: 10px;
+    }
+
+    #title span{
+        text-shadow: 0px 0px 30px var(--color66);    
+        font-size: 15.8dvmax;
+        line-height: 12dvmax;
+    }
+
+    h3{
+        top: 20px;
+    }
+    
+    h4{
+        font-size: 25px;
+        line-height: 30px;
+        width: 80%;
+    }
+
+    p{
+        max-width: 600px;
         hyphens: auto;
         word-wrap: break-word;
         overflow-wrap: break-word;
