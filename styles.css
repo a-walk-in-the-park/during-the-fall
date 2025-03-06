@@ -455,12 +455,20 @@ a:visited{
         margin: 0%;
         padding-top: 0px;
         padding-left: 10px;
+        gap: 0dvmax;
+        justify-content: space-between;
+        z-index: -99;
+        filter: blur(1px);
     }
 
     #title span{
         text-shadow: 0px 0px 30px var(--color66);    
         font-size: 13.8dvmax;
         line-height: 12dvmax;
+        background-color:  var(--color55);
+        padding-right: 5px;
+        /* box-shadow: 0px 0px 10px 10px #c7595942; */
+        /* padding: 0px 30px 0px 10px */
     }
 
     h3{
@@ -513,6 +521,8 @@ a:visited{
         margin: 0%;
         padding-top: 14px;
         padding-left: 10px;
+        gap: 2dvmax;
+        justify-content: space-between;
     }
 
     #title span{
