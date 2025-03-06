@@ -521,14 +521,18 @@ a:visited{
         margin: 0%;
         padding-top: 14px;
         padding-left: 10px;
-        gap: 2dvmax;
+        gap: 0dvmax;
         justify-content: space-between;
+        z-index: -99;
+        filter: blur(1px);
     }
 
     #title span{
         text-shadow: 0px 0px 30px var(--color66);    
         font-size: 15.8dvmax;
         line-height: 12dvmax;
+        background-color:  var(--color55);
+        padding-right: 5px;
     }
 
     h3{
